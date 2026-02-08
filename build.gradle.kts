@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform") version "2.3.0"
+    id("com.vanniktech.maven.publish") version "0.36.0"
 }
 
 group = "org.ntqqrev"
@@ -55,4 +56,39 @@ kotlin {
     }
 
     jvmToolchain(25)
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+    coordinates(
+        groupId = project.group.toString(),
+        artifactId = project.name,
+        version = project.version.toString()
+    )
+
+    pom {
+        name = project.name
+        description = "Kotlin binding of LagrangeCodec"
+        url = "https://github.com/SaltifyDev/acidify-codec"
+        inceptionYear = "2026"
+        licenses {
+            license {
+                name = "GNU General Public License v3.0"
+                url = "https://www.gnu.org/licenses/gpl-3.0.en.html"
+            }
+        }
+        developers {
+            developer {
+                id = "Wesley-Young"
+                name = "Wesley F. Young"
+                email = "wesley.f.young@outlook.com"
+            }
+        }
+        scm {
+            connection = "scm:git:git://github.com/SaltifyDev/acidify-codec.git"
+            developerConnection = "scm:git:ssh://github.com/SaltifyDev/acidify-codec.git"
+            url = "https://github.com/SaltifyDev/acidify-codec"
+        }
+    }
 }
